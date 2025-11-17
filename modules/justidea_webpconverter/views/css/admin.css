@@ -1,0 +1,134 @@
+/**
+ * Justidea WebP Converter - Admin Styles
+ *
+ * @author Justidea Agency
+ * @copyright 2025 Justidea Agency
+ * @license AFL-3.0
+ */
+
+/* Stats Panel */
+.justidea-webp-stats {
+    margin-bottom: 20px;
+}
+
+.justidea-webp-stats .stat-box {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    margin-bottom: 15px;
+}
+
+.justidea-webp-stats .stat-box h4 {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.justidea-webp-stats .stat-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #0b69f6;
+    line-height: 1;
+}
+
+.justidea-webp-stats .stat-label {
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* Progress Bar for Batch Conversion */
+.webp-conversion-progress {
+    display: none;
+    margin-top: 20px;
+}
+
+.webp-conversion-progress.active {
+    display: block;
+}
+
+.webp-progress-bar {
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.webp-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0b69f6, #188251);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.webp-progress-text {
+    margin-top: 10px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* System Info */
+.webp-system-info {
+    margin-top: 20px;
+}
+
+.webp-system-info .badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    margin-left: 10px;
+}
+
+.webp-system-info .badge-success {
+    background-color: #188251;
+}
+
+.webp-system-info .badge-danger {
+    background-color: #ff4657;
+}
+
+/* Button Enhancements */
+.btn-webp-convert {
+    background: linear-gradient(135deg, #0b69f6, #188251);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-webp-convert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(11, 105, 246, 0.3);
+    color: white;
+}
+
+.btn-webp-convert:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Alert Enhancements */
+.alert-webp {
+    border-left: 4px solid #0b69f6;
+    background: #f0f7ff;
+    color: #0b69f6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .justidea-webp-stats .stat-number {
+        font-size: 36px;
+    }
+}
