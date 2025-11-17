@@ -2,7 +2,7 @@
 <module>
     <name>justidea_webpconverter</name>
     <displayName><![CDATA[Justidea WebP Converter]]></displayName>
-    <version><![CDATA[1.0.0]]></version>
+    <version><![CDATA[1.1.0]]></version>
     <description><![CDATA[Automatically converts product images to WebP format for better performance and reduced file sizes.]]></description>
     <author><![CDATA[Justidea Agency]]></author>
     <tab><![CDATA[administration]]></tab>

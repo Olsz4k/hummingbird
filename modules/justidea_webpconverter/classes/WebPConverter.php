@@ -13,23 +13,27 @@ if (!defined('_PS_VERSION_')) {
 
 class WebPConverter
 {
-    const METHOD_AUTO = 'auto';
-    const METHOD_GD = 'gd';
-    const METHOD_IMAGICK = 'imagick';
+    public const METHOD_AUTO = 'auto';
+    public const METHOD_GD = 'gd';
+    public const METHOD_IMAGICK = 'imagick';
 
-    private $quality = 80;
-    private $method = self::METHOD_AUTO;
-    private $keepOriginal = true;
-    private $errors = [];
+    private int $quality = 80;
+    private string $method = self::METHOD_AUTO;
+    private bool $keepOriginal = true;
+    private array $errors = [];
 
     /**
      * Constructor
+     *
+     * @param int $quality WebP quality (60-100)
+     * @param string $method Conversion method (auto, gd, imagick)
+     * @param bool $keepOriginal Keep original files
      */
-    public function __construct($quality = 80, $method = self::METHOD_AUTO, $keepOriginal = true)
+    public function __construct(int $quality = 80, string $method = self::METHOD_AUTO, bool $keepOriginal = true)
     {
-        $this->quality = (int) $quality;
+        $this->quality = $quality;
         $this->method = $method;
-        $this->keepOriginal = (bool) $keepOriginal;
+        $this->keepOriginal = $keepOriginal;
     }
 
     /**
@@ -37,9 +41,9 @@ class WebPConverter
      *
      * @param string $sourcePath Path to source image
      * @param int|null $quality Quality override
-     * @return array Result with success status and info
+     * @return array<string, mixed> Result with success status and info
      */
-    public function convertToWebP($sourcePath, $quality = null)
+    public function convertToWebP(string $sourcePath, ?int $quality = null): array
     {
         $result = [
             'success' => false,
@@ -124,7 +128,7 @@ class WebPConverter
      * @param int $quality Quality level
      * @return bool Success status
      */
-    private function convertWithImageMagick($source, $destination, $quality)
+    private function convertWithImageMagick(string $source, string $destination, int $quality): bool
     {
         if (!extension_loaded('imagick')) {
             return false;
@@ -162,7 +166,7 @@ class WebPConverter
      * @param int $quality Quality level
      * @return bool Success status
      */
-    private function convertWithGD($source, $destination, $quality)
+    private function convertWithGD(string $source, string $destination, int $quality): bool
     {
         if (!function_exists('imagewebp')) {
             return false;
@@ -212,9 +216,9 @@ class WebPConverter
      * @param string $directory Directory path
      * @param int|null $quality Quality override
      * @param bool $recursive Process subdirectories
-     * @return array Statistics
+     * @return array<string, int> Statistics
      */
-    public function convertDirectory($directory, $quality = null, $recursive = true)
+    public function convertDirectory(string $directory, ?int $quality = null, bool $recursive = true): array
     {
         $stats = [
             'total' => 0,
@@ -270,9 +274,9 @@ class WebPConverter
     /**
      * Detect best conversion method available
      *
-     * @return string Method constant
+     * @return string|null Method constant or null if no method available
      */
-    private function detectBestMethod()
+    private function detectBestMethod(): ?string
     {
         if ($this->method !== self::METHOD_AUTO) {
             return $this->method;
@@ -294,9 +298,9 @@ class WebPConverter
     /**
      * Check if WebP conversion is supported
      *
-     * @return array Status of available methods
+     * @return array<string, bool> Status of available methods
      */
-    public static function checkSupport()
+    public static function checkSupport(): array
     {
         return [
             'imagick' => extension_loaded('imagick'),
@@ -308,17 +312,19 @@ class WebPConverter
     /**
      * Get conversion errors
      *
-     * @return array Errors
+     * @return array<int, string> Errors
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
 
     /**
      * Clear errors
+     *
+     * @return void
      */
-    public function clearErrors()
+    public function clearErrors(): void
     {
         $this->errors = [];
     }
@@ -329,10 +335,10 @@ class WebPConverter
      * @param string $imagePath Original image path/URL
      * @param string $alt Alt text
      * @param string $class CSS class
-     * @param array $attributes Additional attributes
+     * @param array<string, string> $attributes Additional attributes
      * @return string HTML picture tag
      */
-    public static function generatePictureTag($imagePath, $alt = '', $class = '', $attributes = [])
+    public static function generatePictureTag(string $imagePath, string $alt = '', string $class = '', array $attributes = []): string
     {
         $pathInfo = pathinfo($imagePath);
         $webpPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.webp';

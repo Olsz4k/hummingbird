@@ -5,7 +5,7 @@
  * @author    Justidea Agency
  * @copyright 2025 Justidea Agency
  * @license   AFL-3.0
- * @version   1.0.0
+ * @version   1.1.0
  */
 
 if (!defined('_PS_VERSION_')) {
@@ -20,10 +20,10 @@ class Justidea_WebPConverter extends Module
     {
         $this->name = 'justidea_webpconverter';
         $this->tab = 'administration';
-        $this->version = '1.0.0';
+        $this->version = '1.1.0';
         $this->author = 'Justidea Agency';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = ['min' => '9.0.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '8.0.0', 'max' => _PS_VERSION_];
         $this->bootstrap = true;
 
         parent::__construct();
@@ -35,8 +35,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Install module
+     *
+     * @return bool Installation result
      */
-    public function install()
+    public function install(): bool
     {
         return parent::install()
             && $this->registerHook('actionAfterImageUpload')
@@ -49,8 +51,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Uninstall module
+     *
+     * @return bool Uninstallation result
      */
-    public function uninstall()
+    public function uninstall(): bool
     {
         return $this->uninstallConfiguration()
             && parent::uninstall();
@@ -58,8 +62,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Install default configuration
+     *
+     * @return bool Configuration installation result
      */
-    private function installConfiguration()
+    private function installConfiguration(): bool
     {
         return Configuration::updateValue('JUSTIDEA_WEBP_ENABLED', 1)
             && Configuration::updateValue('JUSTIDEA_WEBP_QUALITY', 80)
@@ -72,8 +78,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Uninstall configuration
+     *
+     * @return bool Configuration uninstallation result
      */
-    private function uninstallConfiguration()
+    private function uninstallConfiguration(): bool
     {
         return Configuration::deleteByName('JUSTIDEA_WEBP_ENABLED')
             && Configuration::deleteByName('JUSTIDEA_WEBP_QUALITY')
@@ -86,8 +94,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Module configuration page
+     *
+     * @return string HTML output for configuration page
      */
-    public function getContent()
+    public function getContent(): string
     {
         $output = '';
 
@@ -112,8 +122,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Process configuration form
+     *
+     * @return string HTML output (success or error message)
      */
-    private function processConfiguration()
+    private function processConfiguration(): string
     {
         $enabled = (int) Tools::getValue('JUSTIDEA_WEBP_ENABLED');
         $quality = (int) Tools::getValue('JUSTIDEA_WEBP_QUALITY');
@@ -137,8 +149,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Display stats
+     *
+     * @return string HTML output for stats panel
      */
-    private function displayStats()
+    private function displayStats(): string
     {
         $converted = (int) Configuration::get('JUSTIDEA_WEBP_STATS_CONVERTED');
         $savedBytes = (int) Configuration::get('JUSTIDEA_WEBP_STATS_SAVED_BYTES');
@@ -154,8 +168,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Display configuration form
+     *
+     * @return string HTML output for configuration form
      */
-    private function displayConfigurationForm()
+    private function displayConfigurationForm(): string
     {
         $fieldsForm = [
             'form' => [
@@ -258,8 +274,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Get config values
+     *
+     * @return array<string, mixed> Configuration field values
      */
-    public function getConfigFieldsValues()
+    public function getConfigFieldsValues(): array
     {
         return [
             'JUSTIDEA_WEBP_ENABLED' => Configuration::get('JUSTIDEA_WEBP_ENABLED'),
@@ -272,8 +290,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Process batch conversion
+     *
+     * @return string HTML output (success or error message)
      */
-    private function processBatchConversion()
+    private function processBatchConversion(): string
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED')) {
             return $this->displayError($this->l('WebP conversion is disabled'));
@@ -305,22 +325,28 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Hook: After image upload
+     *
+     * @param array<string, mixed> $params Hook parameters
+     * @return void
      */
-    public function hookActionAfterImageUpload($params)
+    public function hookActionAfterImageUpload(array $params): void
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED') || !Configuration::get('JUSTIDEA_WEBP_AUTO_CONVERT')) {
             return;
         }
 
         if (isset($params['id_image']) && isset($params['image'])) {
-            $this->convertProductImage($params['id_image']);
+            $this->convertProductImage((int) $params['id_image']);
         }
     }
 
     /**
      * Hook: After image add
+     *
+     * @param array<string, mixed> $params Hook parameters
+     * @return void
      */
-    public function hookActionObjectImageAddAfter($params)
+    public function hookActionObjectImageAddAfter(array $params): void
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED') || !Configuration::get('JUSTIDEA_WEBP_AUTO_CONVERT')) {
             return;
@@ -329,37 +355,45 @@ class Justidea_WebPConverter extends Module
         if (isset($params['object'])) {
             $image = $params['object'];
             if ($image instanceof Image) {
-                $this->convertProductImage($image->id);
+                $this->convertProductImage((int) $image->id);
             }
         }
     }
 
     /**
      * Hook: After image update
+     *
+     * @param array<string, mixed> $params Hook parameters
+     * @return void
      */
-    public function hookActionObjectImageUpdateAfter($params)
+    public function hookActionObjectImageUpdateAfter(array $params): void
     {
         $this->hookActionObjectImageAddAfter($params);
     }
 
     /**
      * Hook: After watermark
+     *
+     * @param array<string, mixed> $params Hook parameters
+     * @return void
      */
-    public function hookActionWatermark($params)
+    public function hookActionWatermark(array $params): void
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED') || !Configuration::get('JUSTIDEA_WEBP_AUTO_CONVERT')) {
             return;
         }
 
         if (isset($params['id_image']) && isset($params['id_product'])) {
-            $this->convertProductImage($params['id_image']);
+            $this->convertProductImage((int) $params['id_image']);
         }
     }
 
     /**
      * Hook: Display header (add preload for WebP)
+     *
+     * @return void
      */
-    public function hookDisplayHeader()
+    public function hookDisplayHeader(): void
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED')) {
             return;
@@ -374,8 +408,10 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Register Smarty plugins
+     *
+     * @return void
      */
-    private function registerSmartyPlugins()
+    private function registerSmartyPlugins(): void
     {
         $smartyPluginsPath = _PS_MODULE_DIR_ . $this->name . '/smarty/';
 
@@ -402,8 +438,11 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Convert product image to WebP
+     *
+     * @param int $idImage Image ID
+     * @return void
      */
-    private function convertProductImage($idImage)
+    private function convertProductImage(int $idImage): void
     {
         $converter = new WebPConverter();
         $image = new Image($idImage);
@@ -432,8 +471,11 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Register Smarty modifiers
+     *
+     * @return void
+     * @deprecated Use registerSmartyPlugins() instead
      */
-    public function smartyRegisterModifiers()
+    public function smartyRegisterModifiers(): void
     {
         smartyRegisterFunction(
             $this->context->smarty,
@@ -445,8 +487,11 @@ class Justidea_WebPConverter extends Module
 
     /**
      * Smarty modifier: Convert image URL to WebP
+     *
+     * @param string $imageUrl Original image URL
+     * @return string WebP image URL or original if not available
      */
-    public function smartyModifierWebP($imageUrl)
+    public function smartyModifierWebP(string $imageUrl): string
     {
         if (!Configuration::get('JUSTIDEA_WEBP_ENABLED')) {
             return $imageUrl;

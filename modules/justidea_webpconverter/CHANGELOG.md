@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2025-01-17
+
+### Changed
+- 🔧 **PrestaShop 8.0+ Compatibility**: Updated minimum version from 9.0.0 to 8.0.0
+- 🔧 **Modern PHP Type Hints**: Added strict type hints and return types (PHP 7.4+)
+  - All public and private methods now have proper type declarations
+  - Improved IDE autocompletion and type safety
+  - Better error detection during development
+- 🔧 **Enhanced Documentation**: Improved PHPDoc blocks with detailed parameter and return type annotations
+- 🔧 **Code Quality**: Applied PSR-12 coding standards
+  - Used `public const` instead of `const` for class constants
+  - Proper type declarations on class properties
+  - Consistent method signature formatting
+
+### Technical Improvements
+- ✅ Backward compatible with PrestaShop 8.0, 8.1, 9.0+
+- ✅ PHP 7.4+ typed properties for better performance
+- ✅ Nullable types (`?int`, `?string`) for optional parameters
+- ✅ Array type annotations (`array<string, mixed>`) for better documentation
+- ✅ Void return types for methods that don't return values
+- ✅ Strict boolean, integer, and string type enforcement
+
+### Code Examples
+```php
+// Before (1.0.0)
+public function install()
+{
+    return parent::install() && $this->registerHook('displayHeader');
+}
+
+// After (1.1.0)
+public function install(): bool
+{
+    return parent::install() && $this->registerHook('displayHeader');
+}
+```
+
+---
+
 ## [1.0.0] - 2025-01-17
 
 ### Added
