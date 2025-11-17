@@ -1,0 +1,28 @@
+name: justidea-agency
+display_name: Justidea Agency
+version: 1.0.0
+author:
+  name: "Your Company Name"
+  email: "contact@yourcompany.com"
+  url: "https://yourcompany.com"
+
+parent: hummingbird
+
+meta:
+  compatibility:
+    from: 9.0.0
+    to: ~
+    framework: bootstrap-v5.3.3
+
+global_settings:
+  configuration:
+    PS_IMAGE_QUALITY: png
+    HOME_FEATURED_NBR: 8
+    NEW_PRODUCTS_NBR: 8
+    BLOCKSPECIALS_SPECIALS_NBR: 8
+    PS_BLOCK_BESTSELLERS_TO_DISPLAY: 8
+    PSR_ICON_COLOR: "#0b69f6"
+    PSR_TEXT_COLOR: "#212529"
+
+theme_settings:
+  default_layout: layout-full-width

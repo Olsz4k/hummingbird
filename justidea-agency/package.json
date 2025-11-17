@@ -1,0 +1,28 @@
+{
+  "name": "justidea-agency",
+  "version": "1.0.0",
+  "description": "Child theme for Hummingbird - PrestaShop 9.0+",
+  "author": "Your Company Name",
+  "license": "AFL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/justidea-agency"
+  },
+  "scripts": {
+    "dev": "echo 'Development mode - add your build commands here'",
+    "build": "echo 'Production build - add your build commands here'",
+    "watch": "echo 'Watch mode - add your watch commands here'",
+    "css:build": "echo 'Build CSS - add your CSS build commands here'",
+    "js:build": "echo 'Build JS - add your JS build commands here'"
+  },
+  "keywords": [
+    "prestashop",
+    "theme",
+    "child-theme",
+    "hummingbird",
+    "justidea",
+    "agency"
+  ],
+  "devDependencies": {},
+  "dependencies": {}
+}
