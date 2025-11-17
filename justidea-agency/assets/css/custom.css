@@ -1,0 +1,135 @@
+/**
+ * Justidea Agency - Custom Styles
+ * Child Theme for Hummingbird
+ *
+ * Add your custom CSS modifications here
+ */
+
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+
+:root {
+  /* Custom color palette - modify as needed */
+  --primary-color: #0b69f6;
+  --secondary-color: #212529;
+  --accent-color: #ff6b6b;
+  --success-color: #51cf66;
+  --warning-color: #ffd43b;
+  --error-color: #ff6b6b;
+  --text-color: #212529;
+  --background-color: #ffffff;
+  --border-color: #dee2e6;
+}
+
+/* ===================================
+   HEADER CUSTOMIZATION
+   =================================== */
+
+/* Uncomment and modify header styles as needed */
+/*
+#header {
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-top {
+  padding: 10px 0;
+}
+*/
+
+/* ===================================
+   NAVIGATION CUSTOMIZATION
+   =================================== */
+
+/* Uncomment and modify navigation styles as needed */
+/*
+#main-menu {
+  font-weight: 500;
+}
+
+#main-menu .nav-link {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+#main-menu .nav-link:hover {
+  color: var(--primary-color);
+}
+*/
+
+/* ===================================
+   PRODUCT CUSTOMIZATION
+   =================================== */
+
+/* Uncomment and modify product styles as needed */
+/*
+.product-miniature {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-miniature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-price {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+*/
+
+/* ===================================
+   FOOTER CUSTOMIZATION
+   =================================== */
+
+/* Uncomment and modify footer styles as needed */
+/*
+#footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid var(--border-color);
+  padding: 40px 0 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+*/
+
+/* ===================================
+   BUTTONS CUSTOMIZATION
+   =================================== */
+
+/* Uncomment and modify button styles as needed */
+/*
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: darken(var(--primary-color), 10%);
+  border-color: darken(var(--primary-color), 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+*/
+
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+   =================================== */
+
+@media (max-width: 768px) {
+  /* Add mobile-specific styles here */
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Add tablet-specific styles here */
+}
+
+@media (min-width: 1025px) {
+  /* Add desktop-specific styles here */
+}
